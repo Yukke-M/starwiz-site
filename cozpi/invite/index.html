@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cozpi へのおさそい | STARWIZ</title>
+<meta name="description" content="友だちから Cozpi にさそわれました。アプリを入れて、招待コードを入力してね。">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#EAF5E6">
+<link rel="icon" href="../../img/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../../img/apple-touch-icon.png">
+<!--
+  Cozpi の招待リンク https://starwiz.co.jp/cozpi/invite?code=XXXXXXXX を、アプリが入っていない人が開いた時のページ（fix2 10/13）。
+  アプリが入っていてユニバーサルリンクの設定が済んでいれば、このページは出ずにアプリの招待画面が開く。
+  ストアの URL がまだ無いので ★APP_STORE_URL★／★GOOGLE_PLAY_URL★ の印を置いた。印のままなら「もうすぐ公開」と出す。
+  手順：30_開発/mvp-3apps/UNIVERSAL_LINK_SETUP.md
+-->
+<style>
+  :root{--bg:#EAF5E6;--paper:#FFFFFF;--ink:#333333;--sub:#6B6B6B;--green:#6EB45C;--green-edge:#5A9A4A;--line:#DDE9D8;color-scheme:light}
+  *{box-sizing:border-box}
+  body{margin:0;min-height:100vh;background:var(--bg);color:var(--ink);font-family:"Hiragino Maru Gothic ProN","Hiragino Sans","Noto Sans JP",-apple-system,BlinkMacSystemFont,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.7}
+  main{max-width:440px;margin:0 auto;padding:48px 16px 40px;text-align:center}
+  .logo{width:88px;height:88px;border-radius:22px;margin:0 auto 18px;display:block;box-shadow:0 6px 18px rgba(60,90,50,.18)}
+  h1{font-size:24px;margin:0 0 6px;line-height:1.45}
+  .lead{color:var(--sub);margin:0 0 26px;font-size:15px}
+  .card{background:var(--paper);border-radius:20px;padding:22px 18px;margin:0 0 16px;text-align:left}
+  .step{display:flex;gap:12px;align-items:flex-start}
+  .num{flex:none;width:28px;height:28px;border-radius:50%;background:var(--green);color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center;font-size:15px;margin-top:2px}
+  .step h2{font-size:17px;margin:0 0 4px}
+  .step p{margin:0;color:var(--sub);font-size:14px}
+  .stores{display:flex;flex-direction:column;gap:10px;margin-top:14px}
+  .btn{display:block;text-align:center;text-decoration:none;font-weight:700;font-size:16px;padding:14px 16px;border-radius:14px;background:var(--green);color:#fff;border:0;border-bottom:4px solid var(--green-edge);cursor:pointer;width:100%;font-family:inherit}
+  .btn.dark{background:#333;border-bottom-color:#111}
+  .btn.off{background:#E3E3E3;color:#999;border-bottom-color:#CFCFCF;pointer-events:none}
+  .code{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:30px;font-weight:700;letter-spacing:.14em;text-align:center;background:#F6F6F6;border:2px dashed var(--line);border-radius:14px;padding:12px 8px;margin:14px 0 10px;user-select:all;-webkit-user-select:all}
+  .copied{color:var(--green-edge);font-size:14px;min-height:20px;text-align:center;margin:6px 0 0}
+  .open{margin-top:18px;font-size:14px;color:var(--sub)}
+  .open a{color:var(--green-edge);font-weight:700}
+  footer{margin-top:28px;font-size:12px;color:#8A9A86}
+  footer a{color:inherit}
+</style>
+</head>
+<body>
+<main>
+  <img class="logo" src="../../img/cozpi-icon.png" alt="Cozpi">
+  <h1 data-ja="友だちから Cozpi に&lt;br&gt;さそわれました！" data-en="A friend invited you&lt;br&gt;to Cozpi!">友だちから Cozpi に<br>さそわれました！</h1>
+  <p class="lead" data-ja="うちの子といっしょに、小さなセルフケアを続けるアプリです。" data-en="Care for a little pet by doing small self-care habits.">うちの子といっしょに、小さなセルフケアを続けるアプリです。</p>
+
+  <section class="card">
+    <div class="step">
+      <div class="num">1</div>
+      <div style="flex:1">
+        <h2 data-ja="アプリを入れる" data-en="Get the app">アプリを入れる</h2>
+        <p data-ja="無料ではじめられます。" data-en="It's free to start.">無料ではじめられます。</p>
+        <div class="stores">
+          <a class="btn dark" id="ios" href="★APP_STORE_URL★" data-ja="App Store で入れる" data-en="Download on the App Store">App Store で入れる</a>
+          <a class="btn dark" id="android" href="★GOOGLE_PLAY_URL★" data-ja="Google Play で入れる" data-en="Get it on Google Play">Google Play で入れる</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card" id="codeCard">
+    <div class="step">
+      <div class="num">2</div>
+      <div style="flex:1">
+        <h2 data-ja="招待コードを入力してね" data-en="Enter the invite code">招待コードを入力してね</h2>
+        <p data-ja="アプリの ≡ メニュー →「招待されましたか？」に、このコードを入れると友だちとつながります。" data-en="In the app, open ≡ Menu → “Did someone invite you?” and enter this code to connect with your friend.">アプリの ≡ メニュー →「招待されましたか？」に、このコードを入れると友だちとつながります。</p>
+        <div class="code" id="code">--------</div>
+        <button class="btn" id="copy" type="button" data-ja="コードをコピー" data-en="Copy code">コードをコピー</button>
+        <p class="copied" id="copied" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>
+
+  <p class="open" id="openWrap"><span data-ja="アプリをもう入れている人は" data-en="Already have the app?">アプリをもう入れている人は</span> <a id="openApp" href="cozpi://invite" data-ja="アプリで開く" data-en="Open in the app">アプリで開く</a></p>
+
+  <footer>© STARWIZ Inc. · <a href="../../privacy.html" data-ja="プライバシーポリシー" data-en="Privacy">プライバシーポリシー</a></footer>
+</main>
+<script>
+(function () {
+  var en = !/^ja\b/i.test(navigator.language || '');
+  if (en) {
+    document.documentElement.lang = 'en';
+    document.title = 'You’re invited to Cozpi | STARWIZ';
+    document.querySelectorAll('[data-en]').forEach(function (el) { el.innerHTML = el.getAttribute('data-en'); });
+  }
+  // コード：?code=XXXXXXXX（大文字・英数字8文字。0/O/1/I は使わない）
+  var raw = (new URLSearchParams(location.search).get('code') || '').toUpperCase().replace(/[\s-]/g, '');
+  var ok = /^[ABCDEFGHJKLMNPQRSTUVWXYZ23456789]{8}$/.test(raw);
+  var codeEl = document.getElementById('code');
+  if (ok) {
+    codeEl.textContent = raw;
+    document.getElementById('openApp').href = 'cozpi://invite?code=' + raw;
+  } else {
+    document.getElementById('codeCard').style.display = 'none';
+  }
+  // ストアの URL がまだ印のままなら「もうすぐ公開」
+  [['ios', 'App Store'], ['android', 'Google Play']].forEach(function (x) {
+    var a = document.getElementById(x[0]);
+    if (a.getAttribute('href').indexOf('★') >= 0) {
+      a.classList.add('off');
+      a.removeAttribute('href');
+      a.textContent = x[1] + (en ? ' — coming soon' : '（もうすぐ公開）');
+    }
+  });
+  // 端末に合うストアを上に
+  if (/android/i.test(navigator.userAgent)) {
+    var s = document.querySelector('.stores');
+    s.insertBefore(document.getElementById('android'), s.firstChild);
+  }
+  document.getElementById('copy').addEventListener('click', function () {
+    var done = function () { document.getElementById('copied').textContent = en ? 'Copied!' : 'コピーしました'; };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(raw).then(done, function () {});
+    else {
+      var r = document.createRange(); r.selectNodeContents(codeEl);
+      var sel = getSelection(); sel.removeAllRanges(); sel.addRange(r);
+      try { document.execCommand('copy'); done(); } catch (e) {}
+    }
+  });
+})();
+</script>
+</body>
+</html>

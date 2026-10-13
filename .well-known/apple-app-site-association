@@ -1,0 +1,13 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["★TEAM_ID★.jp.co.starwiz.cozpi"],
+        "components": [
+          { "/": "/cozpi/invite", "comment": "Cozpi の招待リンク（?code= つき）" },
+          { "/": "/cozpi/invite/", "comment": "最後に / が付いた形" }
+        ]
+      }
+    ]
+  }
+}
