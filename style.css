@@ -194,6 +194,16 @@ a{color:inherit}
 .page .box{background:var(--paper);border-radius:var(--radius);padding:28px 32px;margin-top:40px}
 .page .box a{font-family:"Inter",sans-serif;font-weight:600}
 .page .enl{display:block;color:var(--sub);font-size:14px}
+/* プライバシーポリシーの表・言語の切りかえ（2026-10-18） */
+.page .tbl{overflow-x:auto;margin-top:16px;-webkit-overflow-scrolling:touch}
+.page table{width:100%;border-collapse:collapse;font-size:14px;line-height:1.7;background:var(--paper);border-radius:16px;overflow:hidden}
+.page th,.page td{text-align:left;vertical-align:top;padding:12px 14px;border-bottom:1px solid var(--line);color:#3A3B40}
+.page th{font-weight:700;background:#FBFAF7;white-space:nowrap}
+.page tr:last-child td{border-bottom:0}
+.page .langs{display:flex;gap:10px;margin-top:24px;font-size:14px}
+.page .langs a{text-decoration:none;padding:6px 14px;border-radius:999px;background:var(--paper);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.05)}
+.page .note{font-size:14px;color:var(--sub)}
+.page hr{border:0;border-top:1px solid var(--line);margin:80px 0 0}
 .faq{margin-top:16px;border-top:1px solid var(--line)}
 .faq details{border-bottom:1px solid var(--line);padding:4px 0}
 .faq summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;padding:18px 0;font-weight:700}
