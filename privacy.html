@@ -49,7 +49,7 @@
 <h3>3-1. Pakumi（食事の記録）</h3>
 <ul>
 <li><strong>端末の中だけに保存するもの</strong>：最初の質問で入力した情報（呼び名、性別、年齢、身長、体重、目標の体重、目標など）、食事の記録（料理名・量・栄養の推定）、食事の写真、体重の記録、相棒の名前や着せかえ</li>
-<li><strong>端末の外へ送るもの（AIでの解析を使うときだけ）</strong>：撮影・選択した食事の写真、または入力した食事の文章。料理名と栄養を推定するために当社のサーバーへ送り、当社のサーバーから Google LLC の生成AI（Gemini API）へ送ります。Gemini で処理できなかったときに限り、Anthropic, PBC の生成AI（Claude API）へ送ります。あわせて当社のサーバーには、表示する言語、端末ごとの乱数の番号、購入の状態を確かめるための購入管理用の番号を送ります（AIの事業者へは送りません）。詳しくは第5章をご覧ください。</li>
+<li><strong>端末の外へ送るもの（AIでの解析を使うときだけ）</strong>：撮影・選択した食事の写真、または入力した食事の文章。料理名と栄養を推定するために当社のサーバーへ送り、当社のサーバーから Google LLC の生成AI（Gemini API）へ送ります。Gemini で処理できなかったときに限り、Anthropic, PBC の生成AI（Claude API）へ送ります。あわせて当社のサーバーには、表示する言語、端末ごとの番号（iOS では Apple が当社のアプリ向けに発行する番号）、購入の状態を確かめるための購入管理用の番号を送ります（AIの事業者へは送りません）。無料でお試しいただける AI の記録（1食分）の回数を数えるため、この2つの番号ごとに、解析した回数と記録した回数を当社のサーバーに保存します。詳しくは第5章をご覧ください。</li>
 <li><strong>バーコード</strong>：バーコードを読み取った場合、商品を探すためにその番号を当社のサーバーへ送ります。</li>
 </ul>
 
@@ -79,7 +79,7 @@
 <li>アプリの名前、OS の種類（iOS／Android）</li>
 <li>操作の種類と日時（例：画面を開いた、記録した、運動を始めた・終えた、課金画面を表示した・購入した）</li>
 <li>操作に付く短い値（例：運動の秒数、痛みで中止したか、軽い版・座ったまま版を選んだか、習慣の数）</li>
-<li>Cozpi では、最初の質問で選んだ答え（年代、性別、睡眠、朝の目覚め、体を動かす量、ストレス、支えてくれる人、生活のリズム、取り組みたいこと、アプリを知ったきっかけ）</li>
+<li>Cozpi では、送ることに同意した場合に限り、最初の質問で選んだ答え（年代、性別、睡眠、朝の目覚め、体を動かす量、ストレス、支えてくれる人、生活のリズム、取り組みたいこと、アプリを知ったきっかけ）</li>
 </ul>
 <p>名前、メールアドレス、写真、入力した文章、日記の文章、料理名は、利用状況の記録には含めません（送る直前にも取り除く仕組みを入れています）。広告のための識別子（IDFA など）は取得しません。</p>
 
@@ -149,7 +149,8 @@
 
 <h2 id="delete">10. 保存期間と削除のしかた</h2>
 <ul>
-<li><strong>端末の中の記録</strong>：アプリを削除すると消えます。Cozpi は、プロフィールの画面の「記録を消す」から全部消すこともできます。</li>
+<li><strong>端末の中の記録</strong>：アプリを削除すると消えます。</li>
+<li><strong>Cozpi のアプリの中での削除</strong>：「設定 → データ → アカウントとデータを削除」で、端末の中の記録に加えて、当社のサーバーにある利用状況の記録・友だち機能の情報・バックアップ・Apple でのサインインの情報を削除できます。購入の記録（RevenueCat が管理するもの）は削除されません。また、削除しても有料の契約は止まりませんので、App Store・Google Play で解約してください。</li>
 <li><strong>バックアップ</strong>：サインアウトしても当社のサーバーには残ります。削除をお申し込みいただくと、バックアップと Apple でのサインインの情報を削除します。</li>
 <li><strong>利用状況の記録・友だち機能の情報</strong>：利用目的に必要な間だけ保存し、不要になったものは削除します。削除のお申し込みにも応じます（端末ごとの乱数の番号で記録を分けているため、ご本人の記録を特定できる範囲での対応になります）。</li>
 <li><strong>AI に送った写真・文章</strong>：当社は保存しません（第5章）。</li>
@@ -161,7 +162,7 @@
 <li>AI での解析（Pakumi）：アプリの設定「AIでの解析」で取り消せます。</li>
 <li>通知・カメラ・写真：端末の設定でいつでも変えられます。</li>
 <li>バックアップ（Sofafit・Cozpi）：設定でサインアウトすると、それ以降は送りません。保存済みの分は第10章の方法で削除できます。</li>
-<li>利用状況の記録の停止や削除をご希望の場合は、窓口までご連絡ください。</li>
+<li>利用状況の記録：Cozpi は「設定 → データ → 利用状況を送る」で止められます。そのほかのアプリで停止や削除をご希望の場合は、窓口までご連絡ください。</li>
 </ul>
 
 <h2>12. 開示などのご請求</h2>
@@ -200,7 +201,7 @@
 <h3>3.1 Pakumi (meal tracking)</h3>
 <ul>
 <li><strong>Stored only on your device:</strong> what you enter during setup (nickname, sex, age, height, weight, target weight, goals), meal records (dish names, portions, estimated nutrition), meal photos, weight records, your companion's name and outfits.</li>
-<li><strong>Sent off your device (only when you use AI analysis):</strong> the meal photo you take or choose, or the meal description you type. It is sent to our server and from there to Google LLC's generative AI (Gemini API) to estimate the dish and its nutrition. Only if Gemini cannot process it, it is sent to Anthropic, PBC's generative AI (Claude API). Our server also receives your display language, a random per-device number and a purchase-management ID used to check your subscription (these are not sent to the AI providers). See Section 5.</li>
+<li><strong>Sent off your device (only when you use AI analysis):</strong> the meal photo you take or choose, or the meal description you type. It is sent to our server and from there to Google LLC's generative AI (Gemini API) to estimate the dish and its nutrition. Only if Gemini cannot process it, it is sent to Anthropic, PBC's generative AI (Claude API). Our server also receives your display language, a per-device number (on iOS, the number Apple issues for our apps) and a purchase-management ID used to check your subscription (these are not sent to the AI providers). To count the free AI trial (one meal), we store, for each of these two numbers, how many analyses and logged meals have been used. See Section 5.</li>
 <li><strong>Barcodes:</strong> if you scan a barcode, the barcode number is sent to our server to look up the product.</li>
 </ul>
 
@@ -230,7 +231,7 @@
 <li>the App name and operating system (iOS/Android)</li>
 <li>the type and time of actions (e.g. opened a screen, logged a meal, started or finished a workout, viewed the paywall, purchased)</li>
 <li>short values attached to actions (e.g. workout seconds, whether you stopped because of pain, whether you chose the lighter or seated version, number of habits)</li>
-<li>in Cozpi, the options you chose in the setup questions (age range, gender, sleep, waking, activity level, stress, support, routine, focus areas, how you heard about the App)</li>
+<li>in Cozpi, only if you agree to send them, the options you chose in the setup questions (age range, gender, sleep, waking, activity level, stress, support, routine, focus areas, how you heard about the App)</li>
 </ul>
 <p>Usage events do not include your name, email address, photos, text you type, journal entries or dish names (the App also strips such fields right before sending). We do not collect advertising identifiers (such as IDFA).</p>
 
@@ -288,7 +289,8 @@
 
 <h2 id="delete-en">10. Retention and deletion</h2>
 <ul>
-<li><strong>On-device records:</strong> deleted when you delete the App. In Cozpi you can also erase all records from the Profile screen.</li>
+<li><strong>On-device records:</strong> deleted when you delete the App.</li>
+<li><strong>In-app deletion in Cozpi:</strong> Settings &gt; Data &gt; "Delete account and data" deletes your on-device records as well as your usage events, friend-feature data, backup and Sign in with Apple account data on our server. Purchase records (managed by RevenueCat) are not deleted, and deleting does not cancel a paid subscription; please cancel it in the App Store or Google Play.</li>
 <li><strong>Backups:</strong> remain on our server after you sign out. On request, we delete your backup and your Sign in with Apple account data.</li>
 <li><strong>Usage events and friend-feature data:</strong> kept only as long as needed for the purposes above and then deleted. We also honor deletion requests to the extent we can identify your records (they are keyed by a random per-device number).</li>
 <li><strong>Photos and text sent for AI analysis:</strong> not stored by us (Section 5).</li>
@@ -300,7 +302,7 @@
 <li>AI analysis (Pakumi): Settings &gt; "AI analysis".</li>
 <li>Notifications, camera and photos: your device settings.</li>
 <li>Backup (Sofafit, Cozpi): sign out in Settings to stop sending; delete stored data as described in Section 10.</li>
-<li>To stop or delete usage events, contact us.</li>
+<li>Usage events: in Cozpi, turn off Settings &gt; Data &gt; "Send usage data". For the other Apps, contact us to stop or delete usage events.</li>
 </ul>
 
 <h2>12. Your rights</h2>
