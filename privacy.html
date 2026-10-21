@@ -50,6 +50,7 @@
 <ul>
 <li><strong>端末の中だけに保存するもの</strong>：最初の質問で入力した情報（呼び名、性別、年齢、身長、体重、目標の体重、目標など）、食事の記録（料理名・量・栄養の推定）、食事の写真、体重の記録、相棒の名前や着せかえ</li>
 <li><strong>端末の外へ送るもの（AIでの解析を使うときだけ）</strong>：撮影・選択した食事の写真、または入力した食事の文章。料理名と栄養を推定するために当社のサーバーへ送り、当社のサーバーから Google LLC の生成AI（Gemini API）へ送ります。Gemini で処理できなかったときに限り、Anthropic, PBC の生成AI（Claude API）へ送ります。あわせて当社のサーバーには、表示する言語、端末ごとの番号（iOS では Apple が当社のアプリ向けに発行する番号）、購入の状態を確かめるための購入管理用の番号を送ります（AIの事業者へは送りません）。無料でお試しいただける AI の記録（1食分）の回数を数えるため、この2つの番号ごとに、解析した回数と記録した回数を当社のサーバーに保存します。詳しくは第5章をご覧ください。</li>
+<li><strong>絵が見つからなかった料理の名前（AIでの解析を使うときだけ）</strong>：AI が推定した料理に合う料理の絵がアプリに無かったとき、その料理の名前（英語）を当社のサーバーへ送り、料理の名前ごとの回数として保存します。写真や、あなたを特定できる情報（端末ごとの番号・購入管理用の番号など）は含めません。料理の絵を増やすためだけに使います。</li>
 <li><strong>バーコード</strong>：バーコードを読み取った場合、商品を探すためにその番号を当社のサーバーへ送ります。</li>
 </ul>
 
@@ -119,7 +120,7 @@
 <p>当社は、利用目的の範囲で、次の事業者に情報の取扱いを委託します。委託先は、当社がこのポリシーで約束している内容と同等の保護を行う条件（各社の利用規約・データ処理に関する条項）のもとで情報を扱います。</p>
 <div class="tbl"><table>
 <tr><th>委託先（所在国）</th><th>委託する内容</th><th>扱う情報</th></tr>
-<tr><td>Supabase, Inc.（米国。データは大韓民国ソウルのサーバーに保存）</td><td>当社のサーバー・データベース、Apple でのサインイン</td><td>利用状況の記録、バックアップ、友だち機能の情報、Pakumi の解析の中継（写真・文章は保存しません）</td></tr>
+<tr><td>Supabase, Inc.（米国。データは大韓民国ソウルのサーバーに保存）</td><td>当社のサーバー・データベース、Apple でのサインイン</td><td>利用状況の記録、バックアップ、友だち機能の情報、Pakumi の解析の中継（写真・文章は保存しません）、絵が見つからなかった料理の名前（英語）と回数</td></tr>
 <tr><td>Google LLC（米国）</td><td>生成AI（Gemini API）による写真・文章の解析（Pakumi）</td><td>食事の写真・文章</td></tr>
 <tr><td>Anthropic, PBC（米国）</td><td>生成AI（Claude API）による解析の予備（Pakumi。Gemini で処理できなかったときだけ）</td><td>食事の写真・文章</td></tr>
 <tr><td>RevenueCat, Inc.（米国）</td><td>サブスクリプションの購入の管理（3つのアプリ）</td><td>購入管理用の番号、購入の状態、端末とアプリの基本的な情報</td></tr>
@@ -154,6 +155,7 @@
 <li><strong>バックアップ</strong>：サインアウトしても当社のサーバーには残ります。削除をお申し込みいただくと、バックアップと Apple でのサインインの情報を削除します。</li>
 <li><strong>利用状況の記録・友だち機能の情報</strong>：利用目的に必要な間だけ保存し、不要になったものは削除します。削除のお申し込みにも応じます（端末ごとの乱数の番号で記録を分けているため、ご本人の記録を特定できる範囲での対応になります）。</li>
 <li><strong>AI に送った写真・文章</strong>：当社は保存しません（第5章）。</li>
+<li><strong>絵が見つからなかった料理の名前と回数</strong>：料理の名前と回数だけで、どなたの物かはわからない形で保存しています。料理の絵を増やすのに必要な間だけ保存し、不要になったものは削除します。</li>
 <li><strong>削除のお申し込み</strong>：件名を「データ削除の依頼」として、アプリの名前と、バックアップを使っている場合は Apple でサインインしたことを書いて、<a href="mailto:miyashita@starwiz.co.jp">miyashita@starwiz.co.jp</a> へご連絡ください。ご本人の確認のうえ、遅滞なく削除し、結果をお知らせします。法令で保存が義務づけられている情報は、その期間保存することがあります。</li>
 </ul>
 
@@ -180,7 +182,7 @@
 <h2>16. 改定</h2>
 <p>法令の変更や本アプリの機能の変更にあわせて、このポリシーを改定することがあります。大切な変更は、このページやアプリの中でお知らせします。</p>
 
-<p class="note" style="margin-top:48px">制定日：2026年10月<br>改定日：2026年10月18日</p>
+<p class="note" style="margin-top:48px">制定日：2026年10月<br>改定日：2026年10月21日</p>
 </section>
 
 <hr>
@@ -202,6 +204,7 @@
 <ul>
 <li><strong>Stored only on your device:</strong> what you enter during setup (nickname, sex, age, height, weight, target weight, goals), meal records (dish names, portions, estimated nutrition), meal photos, weight records, your companion's name and outfits.</li>
 <li><strong>Sent off your device (only when you use AI analysis):</strong> the meal photo you take or choose, or the meal description you type. It is sent to our server and from there to Google LLC's generative AI (Gemini API) to estimate the dish and its nutrition. Only if Gemini cannot process it, it is sent to Anthropic, PBC's generative AI (Claude API). Our server also receives your display language, a per-device number (on iOS, the number Apple issues for our apps) and a purchase-management ID used to check your subscription (these are not sent to the AI providers). To count the free AI trial (one meal), we store, for each of these two numbers, how many analyses and logged meals have been used. See Section 5.</li>
+<li><strong>Names of dishes with no food art (only when you use AI analysis):</strong> when the App has no food illustration matching the dish estimated by AI, it sends the dish name (in English) to our server, where we store only a count for each dish name. It does not include photos or anything that identifies you (such as the per-device number or purchase-management ID). We use it only to add more food art.</li>
 <li><strong>Barcodes:</strong> if you scan a barcode, the barcode number is sent to our server to look up the product.</li>
 </ul>
 
@@ -271,7 +274,7 @@
 <p>We share information with the following providers only as needed for the purposes above. Each provider handles data under its terms and data processing provisions that require protection equal to that described in this policy.</p>
 <div class="tbl"><table>
 <tr><th>Provider (country)</th><th>Service</th><th>Data</th></tr>
-<tr><td>Supabase, Inc. (USA; data stored on servers in Seoul, Republic of Korea)</td><td>Our server and database, Sign in with Apple</td><td>Usage events, backups, friend-feature data, relaying Pakumi analysis (photos and text are not stored)</td></tr>
+<tr><td>Supabase, Inc. (USA; data stored on servers in Seoul, Republic of Korea)</td><td>Our server and database, Sign in with Apple</td><td>Usage events, backups, friend-feature data, relaying Pakumi analysis (photos and text are not stored), English names of dishes with no food art and their counts</td></tr>
 <tr><td>Google LLC (USA)</td><td>Generative AI analysis via Gemini API (Pakumi)</td><td>Meal photos and text</td></tr>
 <tr><td>Anthropic, PBC (USA)</td><td>Backup generative AI analysis via Claude API (Pakumi; only when Gemini fails)</td><td>Meal photos and text</td></tr>
 <tr><td>RevenueCat, Inc. (USA)</td><td>Subscription management (all Apps)</td><td>Purchase-management ID, purchase status, basic device and app information</td></tr>
@@ -294,6 +297,7 @@
 <li><strong>Backups:</strong> remain on our server after you sign out. On request, we delete your backup and your Sign in with Apple account data.</li>
 <li><strong>Usage events and friend-feature data:</strong> kept only as long as needed for the purposes above and then deleted. We also honor deletion requests to the extent we can identify your records (they are keyed by a random per-device number).</li>
 <li><strong>Photos and text sent for AI analysis:</strong> not stored by us (Section 5).</li>
+<li><strong>Names of dishes with no food art and their counts:</strong> stored only as dish names and counts that cannot be linked to any person, kept only as long as needed to add food art, then deleted.</li>
 <li><strong>How to request deletion:</strong> email <a href="mailto:miyashita@starwiz.co.jp">miyashita@starwiz.co.jp</a> with the subject "Data deletion request", the App name and, if you use backup, the fact that you signed in with Apple. After verifying your identity, we will delete the data without undue delay and let you know. We may keep data we are legally required to keep for the required period.</li>
 </ul>
 
@@ -323,7 +327,7 @@
 <h2>17. Changes</h2>
 <p>We may update this policy when laws or the Apps change. We will announce important changes on this page or in the Apps.</p>
 
-<p class="note" style="margin-top:48px">Established: October 2026<br>Last updated: October 18, 2026</p>
+<p class="note" style="margin-top:48px">Established: October 2026<br>Last updated: October 21, 2026</p>
 </section>
 </main>
 
