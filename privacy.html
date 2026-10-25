@@ -49,7 +49,7 @@
 <h3>3-1. Pakumi（食事の記録）</h3>
 <ul>
 <li><strong>端末の中だけに保存するもの</strong>：最初の質問で入力した情報（呼び名、性別、年齢、身長、体重、目標の体重、目標など）、食事の記録（料理名・量・栄養の推定）、食事の写真、体重の記録、水の記録、相棒の名前や着せかえ</li>
-<li><strong>端末の外へ送るもの（AIでの解析を使うときだけ）</strong>：撮影・選択した食事の写真、または入力した食事の文章。料理名と栄養を推定するために当社のサーバーへ送り、当社のサーバーから Google LLC の生成AI（Gemini API）へ送ります。Gemini で処理できなかったとき、または Gemini の応答に時間がかかったときに限り、Anthropic, PBC の生成AI（Claude API）へ送ります。初めて AI での解析を使う前に、アプリの中で送るもの・送り先を示して同意をいただき、同意いただくまでは送りません。あわせて当社のサーバーには、表示する言語、端末ごとの番号（iOS では Apple が当社のアプリ向けに発行する番号）、購入の状態を確かめるための購入管理用の番号を送ります（AIの事業者へは送りません）。無料でお試しいただける AI の記録（1食分）の回数を数えるため、この2つの番号ごとに、解析した回数と記録した回数を当社のサーバーに保存します。同意をいただいた後は、無料の1食分が残っているかを確かめるため、アプリを起動したときにもこの2つの番号を当社のサーバーへ送ることがあります。詳しくは第5章をご覧ください。</li>
+<li><strong>端末の外へ送るもの（AIでの解析を使うときだけ）</strong>：撮影・選択した食事の写真、または入力した食事の文章。料理名と栄養を推定するために当社のサーバーへ送り、当社のサーバーから Google LLC の生成AI（Gemini API）へ送ります。初めて AI での解析を使う前に、アプリの中で送るもの・送り先を示して同意をいただき、同意いただくまでは送りません。あわせて当社のサーバーには、表示する言語、端末ごとの番号（iOS では Apple が当社のアプリ向けに発行する番号）、購入の状態を確かめるための購入管理用の番号を送ります（AIの事業者へは送りません）。無料でお試しいただける AI の記録（1食分）の回数を数えるため、この2つの番号ごとに、解析した回数と記録した回数を当社のサーバーに保存します。同意をいただいた後は、無料の1食分が残っているかを確かめるため、アプリを起動したときにもこの2つの番号を当社のサーバーへ送ることがあります。詳しくは第5章をご覧ください。</li>
 <li><strong>絵が見つからなかった料理の名前（AIでの解析を使うときだけ）</strong>：AI が推定した料理に合う料理の絵がアプリに無かったとき、その料理の名前（英語）を当社のサーバーへ送り、料理の名前ごとの回数として保存します。写真や、あなたを特定できる情報（端末ごとの番号・購入管理用の番号など）は含めません。料理の絵を増やすためだけに使います。</li>
 <li><strong>バーコード</strong>：バーコードを読み取った場合、商品を探すためにその番号を当社のサーバーへ送ります。</li>
 </ul>
@@ -113,7 +113,7 @@
 <ul>
 <li>写真や文章を AI に送る前に、アプリの中で送るもの・送り先・使いみちを示し、同意をいただきます。同意しない場合でも、手入力の記録などは使えます。</li>
 <li>同意は、アプリの設定「AIでの解析」でいつでも取り消せます。取り消した後は送りません。</li>
-<li>当社のサーバーは、受け取った写真や文章を AI に渡して結果を返すだけで、保存しません。送った情報は、Google LLC・Anthropic, PBC それぞれの規約とプライバシーポリシーに従って扱われ、各社の規約に定める範囲で一時的に保存されることがあります。</li>
+<li>当社のサーバーは、受け取った写真や文章を AI に渡して結果を返すだけで、保存しません。送った情報は、Google LLC の規約とプライバシーポリシーに従って扱われ、同社の規約に定める範囲で一時的に保存されることがあります。</li>
 <li>写真は送る前に端末の中で小さくして新しい画像として保存し直すため、撮影場所（位置情報）などの撮影情報は含まれません。保存し直せなかったときは送りません。</li>
 <li>栄養の値は AI による推定です。医療・診断には使えません。持病や食事の制限がある方は、医師にご相談ください。</li>
 </ul>
@@ -124,7 +124,6 @@
 <tr><th>委託先（所在国）</th><th>委託する内容</th><th>扱う情報</th></tr>
 <tr><td>Supabase, Inc.（米国。データは大韓民国ソウルのサーバーに保存）</td><td>当社のサーバー・データベース、Apple でのサインイン</td><td>利用状況の記録、バックアップ、友だち機能の情報、Pakumi の解析の中継（写真・文章は保存しません）、絵が見つからなかった料理の名前（英語）と回数</td></tr>
 <tr><td>Google LLC（米国）</td><td>生成AI（Gemini API）による写真・文章の解析（Pakumi）</td><td>食事の写真・文章</td></tr>
-<tr><td>Anthropic, PBC（米国）</td><td>生成AI（Claude API）による解析の予備（Pakumi。Gemini で処理できなかったとき・応答に時間がかかったときだけ）</td><td>食事の写真・文章</td></tr>
 <tr><td>RevenueCat, Inc.（米国）</td><td>サブスクリプションの購入の管理（3つのアプリ）</td><td>購入管理用の番号、購入の状態、端末とアプリの基本的な情報</td></tr>
 </table></div>
 <p>このほか、アプリの配信と支払いは Apple Inc.（米国）・Google LLC（米国）のストアで、Apple でのサインインは Apple Inc. のサービスで行われます。これらで Apple・Google が扱う情報は、各社のプライバシーポリシーに従って扱われます。</p>
@@ -206,7 +205,7 @@
 <h3>3.1 Pakumi (meal tracking)</h3>
 <ul>
 <li><strong>Stored only on your device:</strong> what you enter during setup (nickname, sex, age, height, weight, target weight, goals), meal records (dish names, portions, estimated nutrition), meal photos, weight records, water records, your companion's name and outfits.</li>
-<li><strong>Sent off your device (only when you use AI analysis):</strong> the meal photo you take or choose, or the meal description you type. It is sent to our server and from there to Google LLC's generative AI (Gemini API) to estimate the dish and its nutrition. Only if Gemini cannot process it or takes too long to respond, it is sent to Anthropic, PBC's generative AI (Claude API). Before you first use AI analysis, the app shows what is sent and to whom and asks for your consent; nothing is sent until you agree. Our server also receives your display language, a per-device number (on iOS, the number Apple issues for our apps) and a purchase-management ID used to check your subscription (these are not sent to the AI providers). To count the free AI trial (one meal), we store, for each of these two numbers, how many analyses and logged meals have been used. After you consent, the app may also send these two numbers to our server when it starts, to check whether your free meal is still available. See Section 5.</li>
+<li><strong>Sent off your device (only when you use AI analysis):</strong> the meal photo you take or choose, or the meal description you type. It is sent to our server and from there to Google LLC's generative AI (Gemini API) to estimate the dish and its nutrition. Before you first use AI analysis, the app shows what is sent and to whom and asks for your consent; nothing is sent until you agree. Our server also receives your display language, a per-device number (on iOS, the number Apple issues for our apps) and a purchase-management ID used to check your subscription (these are not sent to the AI providers). To count the free AI trial (one meal), we store, for each of these two numbers, how many analyses and logged meals have been used. After you consent, the app may also send these two numbers to our server when it starts, to check whether your free meal is still available. See Section 5.</li>
 <li><strong>Names of dishes with no food art (only when you use AI analysis):</strong> when the App has no food illustration matching the dish estimated by AI, it sends the dish name (in English) to our server, where we store only a count for each dish name. It does not include photos or anything that identifies you (such as the per-device number or purchase-management ID). We use it only to add more food art.</li>
 <li><strong>Barcodes:</strong> if you scan a barcode, the barcode number is sent to our server to look up the product.</li>
 </ul>
@@ -270,7 +269,7 @@
 <ul>
 <li>Before any photo or text is sent to AI, the App shows what is sent, where it goes and why, and asks for your explicit permission. If you decline, you can still use manual logging and other features.</li>
 <li>You can withdraw your permission at any time in Settings &gt; "AI analysis". After that, nothing is sent.</li>
-<li>Our server only passes your photo or text to the AI and returns the result; it does not store them. Google LLC and Anthropic, PBC handle the data under their own terms and privacy policies and may retain it temporarily as their terms allow.</li>
+<li>Our server only passes your photo or text to the AI and returns the result; it does not store them. Google LLC handles the data under its own terms and privacy policies and may retain it temporarily as their terms allow.</li>
 <li>Photos are resized and re-saved as a new image on your device before they are sent, so location (GPS) and other camera metadata are not included. If this step fails, the photo is not sent.</li>
 <li>Nutrition values are AI estimates and are not for medical use or diagnosis. If you have a medical condition or dietary restriction, consult a doctor.</li>
 </ul>
@@ -281,7 +280,6 @@
 <tr><th>Provider (country)</th><th>Service</th><th>Data</th></tr>
 <tr><td>Supabase, Inc. (USA; data stored on servers in Seoul, Republic of Korea)</td><td>Our server and database, Sign in with Apple</td><td>Usage events, backups, friend-feature data, relaying Pakumi analysis (photos and text are not stored), English names of dishes with no food art and their counts</td></tr>
 <tr><td>Google LLC (USA)</td><td>Generative AI analysis via Gemini API (Pakumi)</td><td>Meal photos and text</td></tr>
-<tr><td>Anthropic, PBC (USA)</td><td>Backup generative AI analysis via Claude API (Pakumi; only when Gemini fails or is too slow)</td><td>Meal photos and text</td></tr>
 <tr><td>RevenueCat, Inc. (USA)</td><td>Subscription management (all Apps)</td><td>Purchase-management ID, purchase status, basic device and app information</td></tr>
 </table></div>
 <p>App distribution and payments are handled by Apple Inc. and Google LLC through their stores, and Sign in with Apple by Apple Inc., under their own privacy policies.</p>
