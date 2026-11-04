@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>配信停止 | 株式会社スターウィズ</title>
+<meta name="robots" content="noindex">
+<meta name="description" content="お知らせメールの配信停止 / Unsubscribe from news emails">
+<meta property="og:title" content="株式会社スターウィズ | STARWIZ Inc.">
+<meta property="og:description" content="毎日を、少し楽しくするアプリを。">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#F7F5F1">
+<link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="img/favicon-48.png" sizes="48x48" type="image/png">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="./" aria-label="STARWIZ ホーム"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5c.6 5.6 4.9 9.9 10.5 10.5-5.6.6-9.9 4.9-10.5 10.5C11.4 16.9 7.1 12.6 1.5 12 7.1 11.4 11.4 7.1 12 1.5z" fill="currentColor"/></svg>STARWIZ</a>
+    <nav class="nav">
+      <a href="./#apps">開発中のアプリ</a>
+      <a href="company.html">会社概要</a>
+      <a class="btn-s" href="./#contact">お問い合わせ</a>
+    </nav>
+  </div>
+</header>
+
+<main class="page">
+<div class="en">Unsubscribe</div>
+<h1>お知らせメールの<span style="white-space:nowrap">配信停止</span></h1>
+<p class="lead">Pakumi・Sofafit・Cozpi のお知らせメールを止めます。ボタンを押すと、このメールアドレスへのお知らせメールは届かなくなります。<span class="enl">Stop news emails from Pakumi, Sofafit and Cozpi. Press the button and we will no longer send news emails to this address.</span></p>
+<div class="box" id="ub">
+<button id="go" style="font:inherit;font-size:16px;font-weight:700;padding:14px 28px;border:0;border-radius:999px;background:#1d1d1f;color:#fff;cursor:pointer;width:100%">配信を停止する / Unsubscribe</button>
+<p id="msg" role="status" style="margin:14px 0 0;font-size:15px"></p>
+</div>
+<p style="font-size:14px;color:var(--sub)">ログインの番号など、アカウントの手続きのメールは止まりません。アプリの「設定 → アカウント → お知らせメールを受け取る」から、また受け取ることもできます。<span class="enl">Account emails such as login codes are not affected. You can turn news emails back on in the app: Settings &gt; Account &gt; "Get news emails".</span></p>
+<p style="font-size:14px;color:var(--sub)">うまくいかない時は <a href="mailto:miyashita@starwiz.co.jp?subject=unsubscribe">miyashita@starwiz.co.jp</a> へ「配信停止」とお送りください。<span class="enl">If this does not work, email us with the subject "unsubscribe".</span></p>
+</main>
+<script>(function(){
+var t=new URLSearchParams(location.search).get("t")||"",b=document.getElementById("go"),m=document.getElementById("msg");
+if(!/^[a-f0-9]{48}$/.test(t)){b.disabled=true;b.style.opacity=.4;m.textContent="リンクが正しくありません。メールのリンクをもう一度開いてください。 / This link is not valid. Please open the link in the email again.";return}
+b.onclick=function(){b.disabled=true;m.textContent="…";
+fetch("https://dyfrhyywdousgirlpksj.supabase.co/functions/v1/unsubscribe",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({t:t})})
+.then(function(r){return r.json()}).then(function(j){
+if(j.ok){b.style.display="none";m.textContent="配信を停止しました。これまでありがとうございました。 / You have been unsubscribed."}
+else{b.disabled=false;m.textContent=j.reason==="notFound"?"このリンクは使えません。お手数ですがメールでご連絡ください。 / This link is no longer valid. Please email us.":"うまくいきませんでした。少し待ってもう一度お試しください。 / Something went wrong. Please try again."}
+}).catch(function(){b.disabled=false;m.textContent="通信できませんでした。もう一度お試しください。 / Network error. Please try again."})}
+})()</script>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="foot-min">
+      <a class="logo" href="./"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5c.6 5.6 4.9 9.9 10.5 10.5-5.6.6-9.9 4.9-10.5 10.5C11.4 16.9 7.1 12.6 1.5 12 7.1 11.4 11.4 7.1 12 1.5z" fill="currentColor"/></svg>STARWIZ</a>
+      <ul>
+        <li><a href="company.html">会社概要</a></li>
+        <li><a href="support.html">サポート</a></li>
+        <li><a href="privacy.html">プライバシーポリシー</a></li>
+        <li><a href="mailto:miyashita@starwiz.co.jp">お問い合わせ</a></li>
+      </ul>
+    </div>
+    <div class="copy"><span>© 2026 STARWIZ Inc.</span></div>
+  </div>
+</footer>
+
+<script>(function(){var h=document.querySelector(".site-header");function f(){h.classList.toggle("scrolled",scrollY>8)}addEventListener("scroll",f,{passive:true});f()})()</script>
+</body>
+</html>
