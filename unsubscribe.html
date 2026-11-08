@@ -39,13 +39,13 @@
 <main class="page">
 <div class="en">Unsubscribe</div>
 <h1>お知らせメールの<span style="white-space:nowrap">配信停止</span></h1>
-<p class="lead">MunchCal・Sofafit・CozySide のお知らせメールを止めます。ボタンを押すと、このメールアドレスへのお知らせメールは届かなくなります。<span class="enl">Stop news emails from MunchCal, Sofafit and CozySide. Press the button and we will no longer send news emails to this address.</span></p>
+<p class="lead">ボタンを押すと、このメールアドレスに MunchCal・Sofafit・CozySide のお知らせメールが届かなくなります。<span class="enl">Press the button to stop news emails from MunchCal, Sofafit and CozySide to this address.</span></p>
 <div class="box" id="ub">
 <button id="go" style="font:inherit;font-size:16px;font-weight:700;padding:14px 28px;border:0;border-radius:999px;background:#1d1d1f;color:#fff;cursor:pointer;width:100%">配信を停止する / Unsubscribe</button>
 <p id="msg" role="status" style="margin:14px 0 0;font-size:15px"></p>
 </div>
-<p style="font-size:14px;color:var(--sub)">ログインの番号など、アカウントの手続きのメールは止まりません。アプリの「設定 → アカウント → お知らせメールを受け取る」から、また受け取ることもできます。<span class="enl">Account emails such as login codes are not affected. You can turn news emails back on in the app: Settings &gt; Account &gt; "Get news emails".</span></p>
-<p style="font-size:14px;color:var(--sub)">うまくいかない時は <a href="mailto:miyashita@starwiz.co.jp?subject=unsubscribe">miyashita@starwiz.co.jp</a> へ「配信停止」とお送りください。<span class="enl">If this does not work, email us with the subject "unsubscribe".</span></p>
+<p style="font-size:14px;color:var(--sub)">ログイン用の番号など、手続きのメールは引き続き届きます。また受け取りたいときは、アプリの「設定 → アカウント → お知らせメールを受け取る」をオンにしてください。<span class="enl">Account emails such as sign-in codes will still be sent. To get news emails again, turn on Settings &gt; Account &gt; "Get news emails" in the app.</span></p>
+<p style="font-size:14px;color:var(--sub)">うまくいかないときは、<a href="mailto:miyashita@starwiz.co.jp?subject=unsubscribe">miyashita@starwiz.co.jp</a> へ件名「配信停止」でメールをお送りください。<span class="enl">If this does not work, email us with the subject "unsubscribe".</span></p>
 </main>
 <script>(function(){
 var t=new URLSearchParams(location.search).get("t")||"",b=document.getElementById("go"),m=document.getElementById("msg");
@@ -53,8 +53,8 @@ if(!/^[a-f0-9]{48}$/.test(t)){b.disabled=true;b.style.opacity=.4;m.textContent="
 b.onclick=function(){b.disabled=true;m.textContent="…";
 fetch("https://dyfrhyywdousgirlpksj.supabase.co/functions/v1/unsubscribe",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({t:t})})
 .then(function(r){return r.json()}).then(function(j){
-if(j.ok){b.style.display="none";m.textContent="配信を停止しました。これまでありがとうございました。 / You have been unsubscribed."}
-else{b.disabled=false;m.textContent=j.reason==="notFound"?"このリンクは使えません。お手数ですがメールでご連絡ください。 / This link is no longer valid. Please email us.":"うまくいきませんでした。少し待ってもう一度お試しください。 / Something went wrong. Please try again."}
+if(j.ok){b.style.display="none";m.textContent="配信を停止しました。 / You have been unsubscribed."}
+else{b.disabled=false;m.textContent=j.reason==="notFound"?"このリンクは使えません。お手数ですがメールでご連絡ください。 / This link is no longer valid. Please email us.":"停止できませんでした。しばらくしてから、もう一度お試しください。 / Something went wrong. Please try again later."}
 }).catch(function(){b.disabled=false;m.textContent="通信できませんでした。もう一度お試しください。 / Network error. Please try again."})}
 })()</script>
 </main>
