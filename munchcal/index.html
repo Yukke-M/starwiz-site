@@ -2,110 +2,189 @@
 <html lang="ja">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>MunchCal | STARWIZ</title>
-<meta name="description" content="写真を撮るだけでカロリーを記録。シマリスといっしょに続ける食事記録アプリ。">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>MunchCal：AIカロリー計算・食事記録</title>
+<meta name="description" content="写真を撮るだけでカロリーを記録。シマリスといっしょに続ける食事記録アプリ。iPhone・Android 対応。">
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#FFEEE8">
-<link rel="icon" href="../img/munchcal-favicon-48.png" type="image/png">
-<link rel="apple-touch-icon" href="../img/munchcal-apple-touch-icon.png">
+<link rel="icon" href="/img/munchcal-favicon-48.png" type="image/png">
+<link rel="apple-touch-icon" href="/img/munchcal-apple-touch-icon.png">
+<meta name="apple-itunes-app" content="app-id=6827327851">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="MunchCal">
+<meta property="og:url" content="https://starwiz.co.jp/munchcal/">
 <meta property="og:title" content="MunchCal：AIカロリー計算・食事記録">
 <meta property="og:description" content="写真を撮るだけでカロリーを記録。シマリスといっしょに続ける食事記録アプリ。">
 <meta property="og:image" content="https://starwiz.co.jp/img/munchcal-og.png">
-<meta property="og:image:width" content="512">
-<meta property="og:image:height" content="512">
-<meta name="twitter:card" content="summary">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://starwiz.co.jp/img/munchcal-og.png">
 <!--
-  SNS のプロフィール・投稿に貼るための「1本のリンク」（2026-11-24）。
+  SNS に貼る「1本のリンク」（2026-11-24 作成、11-25 作り直し）。
   https://starwiz.co.jp/munchcal?src=tiktok のように開くと、
-    iPhone・iPad → App Store、Android → Google Play に自動で飛ぶ。
-    パソコン・判定できない端末 → このページに両方のボタンを出す。
-  TikTok・Instagram の中のブラウザで自動で飛ばない時のために、ボタンは常に出しておく。
-  src（どこから来たか）は App Store の ct（キャンペーン名）と、Google Play の referrer（utm_source）に渡す。
-  App Store Connect で数を見るには pt（会社の番号）も要る。わかったら下の PT に入れる。
+    iPhone・iPad → App Store、Android → Google Play に自動で進む。パソコンなどでは両方のバッジを出す。
+  TikTok・Instagram の中のブラウザで自動で進まない時のために、バッジは常に出しておく。
+  src（どこから来たか）は App Store の ct、Google Play の referrer（utm_source）に渡す。
+  開いた数：Supabase の events 表に name='link.open'（開いた）／'link.click'（バッジを押した）で1行ずつ入れる。
+    個人を特定する情報は入れない（端末ごとの乱数・どこから来たか・端末の種類・言語だけ）。
+    数え方の SQL は starwiz-kit/docs/supabase-events.sql と同じ表。
+  アイコンはページに埋め込んである（ストアへ進むと読み込み中の画像が止まり、空白になるため）。
 -->
 <style>
-  :root{--bg:#FFEEE8;--paper:#FFFFFF;--ink:#2B2B2B;--sub:#6B6B6B;--brand:#FF6537;--brand-edge:#D64218;color-scheme:light}
+  :root{--bg:#FFEEE8;--paper:#FFFFFF;--ink:#222222;--sub:#6B6B6B;--mute:#9A8A84;--line:#F3DED6;--brand:#FF6537;color-scheme:light}
   *{box-sizing:border-box}
-  body{margin:0;min-height:100vh;background:var(--bg);color:var(--ink);font-family:"Hiragino Sans","Noto Sans JP",-apple-system,BlinkMacSystemFont,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.7}
-  main{max-width:420px;margin:0 auto;padding:56px 16px 40px;text-align:center}
-  .logo{width:104px;height:104px;border-radius:24px;margin:0 auto 18px;display:block;box-shadow:0 8px 22px rgba(214,66,24,.20)}
-  h1{font-size:26px;margin:0 0 4px;line-height:1.4}
-  .lead{color:var(--sub);margin:0 0 28px;font-size:15px}
-  .stores{display:flex;flex-direction:column;gap:12px}
-  .btn{display:block;text-align:center;text-decoration:none;font-weight:700;font-size:17px;padding:15px 16px;border-radius:14px;background:#2B2B2B;color:#fff;border-bottom:4px solid #000}
-  .btn.main{background:var(--brand);border-bottom-color:var(--brand-edge)}
-  .status{font-size:14px;color:var(--sub);min-height:22px;margin:0 0 14px}
-  .pc{margin-top:22px;font-size:14px;color:var(--sub)}
-  footer{margin-top:36px;font-size:12px;color:#9A8A84}
-  footer a{color:inherit}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;min-height:100vh;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif;-webkit-font-smoothing:antialiased;line-height:1.6}
+  main{max-width:460px;margin:0 auto;padding:40px 16px 32px}
+  .card{background:var(--paper);border-radius:28px;padding:28px 20px 24px;box-shadow:0 10px 30px rgba(214,66,24,.10);text-align:center}
+  .logo{width:112px;height:112px;border-radius:26px;display:block;margin:0 auto 16px;box-shadow:0 8px 20px rgba(214,66,24,.22)}
+  h1{font-size:26px;margin:0;line-height:1.3;letter-spacing:.01em}
+  .sub{margin:4px 0 2px;font-size:15px;color:var(--sub)}
+  .dev{margin:0;font-size:13px;color:var(--mute)}
+  .chips{display:flex;justify-content:center;flex-wrap:wrap;gap:6px;margin:16px 0 22px;padding:0;list-style:none}
+  .chips li{font-size:12px;color:#B3471F;background:#FFF3EE;border:1px solid var(--line);border-radius:999px;padding:3px 10px}
+  .badges{display:flex;flex-direction:column;align-items:center;gap:12px}
+  .badges a{display:block;line-height:0;border-radius:10px;-webkit-tap-highlight-color:transparent}
+  .badges a:active{opacity:.75}
+  .badges img{height:56px;width:auto;display:block}
+  .status{font-size:13px;color:var(--sub);margin:14px 0 0;min-height:20px}
+  .shots{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;margin:22px -20px 0;padding:0 20px 6px;scrollbar-width:none}
+  .shots::-webkit-scrollbar{display:none}
+  .shots img{flex:none;width:42%;max-width:170px;aspect-ratio:1320/2868;height:auto;border-radius:16px;scroll-snap-align:center;background:#FFF3EE;border:1px solid var(--line)}
+  .pc{margin:18px 0 0;font-size:13px;color:var(--sub)}
+  footer{margin-top:22px;text-align:center;font-size:12px;color:var(--mute);line-height:2}
+  footer a{color:inherit;text-decoration:none;border-bottom:1px solid rgba(154,138,132,.4)}
+  @media (min-width:700px){.badges{flex-direction:row;justify-content:center}.badges img{height:52px}}
 </style>
 </head>
 <body>
 <main>
-  <img class="logo" src="../img/munchcal-icon.png" alt="MunchCal">
-  <h1>MunchCal</h1>
-  <p class="lead" id="lead">写真を撮るだけで、カロリーを記録。</p>
-  <p class="status" id="status" aria-live="polite"></p>
-  <div class="stores">
-    <a class="btn" id="ios" href="https://apps.apple.com/app/id6827327851">App Store で入れる</a>
-    <a class="btn" id="android" href="https://play.google.com/store/apps/details?id=jp.co.starwiz.pakumi">Google Play で入れる</a>
-  </div>
-  <p class="pc" id="pc" hidden>スマホでこのページを開くと、そのままストアに進めます。<br>starwiz.co.jp/munchcal</p>
-  <footer><a href="../">STARWIZ Inc.</a></footer>
+  <section class="card">
+    <img class="logo" src="data:image/jpeg;base64,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" width="112" height="112" alt="MunchCal のアイコン">
+    <h1>MunchCal</h1>
+    <p class="sub" id="sub">AIカロリー計算・食事記録</p>
+    <p class="dev" id="dev">株式会社スターウィズ</p>
+    <ul class="chips" id="chips">
+      <li>写真を撮るだけで記録</li>
+      <li>無料ではじめられます</li>
+      <li>iPhone・Android</li>
+    </ul>
+    <div class="badges" id="badges">
+      <a id="ios" href="https://apps.apple.com/app/id6827327851" aria-label="App Store からダウンロード"><img id="iosImg" src="/img/badges/appstore-ja.svg" alt="App Store からダウンロード" height="56"></a>
+      <a id="android" href="https://play.google.com/store/apps/details?id=jp.co.starwiz.pakumi" aria-label="Google Play で手に入れよう"><img id="andImg" src="/img/badges/googleplay-ja.png" alt="Google Play で手に入れよう" height="56"></a>
+    </div>
+    <p class="status" id="status" aria-live="polite"></p>
+    <div class="shots" id="shots">
+      <img src="/img/munchcal/ss-ja-1.jpg" alt="ペットと一緒に楽しく食事記録" loading="lazy" decoding="async">
+      <img src="/img/munchcal/ss-ja-2.jpg" alt="撮るだけでカロリー計算" loading="lazy" decoding="async">
+      <img src="/img/munchcal/ss-ja-3.jpg" alt="撮った料理をペットもパクッ" loading="lazy" decoding="async">
+    </div>
+    <p class="pc" id="pc" hidden>スマホでこのページを開くと、そのままストアに進めます。</p>
+  </section>
+  <footer>
+    <span id="by">提供：</span><a href="/">株式会社スターウィズ</a><br>
+    <a href="/privacy.html" id="privacy">プライバシーポリシー</a>　<a href="/support.html" id="support">サポート</a>
+  </footer>
 </main>
 <script>
 (function () {
   var APP_STORE_ID = '6827327851';
   var PLAY_PACKAGE = 'jp.co.starwiz.pakumi';
-  var PT = ''; // App Store Connect の「会社の番号（provider token）」。わかったら入れる
+  var PT = ''; // App Store Connect の「会社の番号（provider token）」。わかったら入れると、App Store Connect でも src ごとの数が出る
+  var SUPABASE_URL = 'https://dyfrhyywdousgirlpksj.supabase.co';
+  var SUPABASE_KEY = 'sb_publishable_6mifftlLfMeXnXjSLCMWtA_w7mh5keb'; // 公開してよい鍵（アプリにも入っている）。表には「足す」ことしかできない
 
   // どこから来たか（?src=tiktok など）。英数字・-・_ だけ、40文字まで
   var m = location.search.match(/[?&]src=([^&#]*)/);
-  var src = m ? decodeURIComponent(m[1]).toLowerCase().replace(/[^a-z0-9_-]/g, '').slice(0, 40) : '';
-  if (!src) src = 'direct';
+  var src = '';
+  try { src = m ? decodeURIComponent(m[1]) : ''; } catch (e) { src = ''; }
+  src = src.toLowerCase().replace(/[^a-z0-9_-]/g, '').slice(0, 40) || 'direct';
 
   var ios = 'https://apps.apple.com/app/id' + APP_STORE_ID + '?ct=' + encodeURIComponent(src) + (PT ? '&pt=' + encodeURIComponent(PT) + '&mt=8' : '');
-  var referrer = 'utm_source=' + src + '&utm_medium=smartlink&utm_campaign=munchcal';
-  var android = 'https://play.google.com/store/apps/details?id=' + PLAY_PACKAGE + '&referrer=' + encodeURIComponent(referrer);
+  var android = 'https://play.google.com/store/apps/details?id=' + PLAY_PACKAGE + '&referrer=' +
+    encodeURIComponent('utm_source=' + src + '&utm_medium=smartlink&utm_campaign=munchcal');
 
-  var iosBtn = document.getElementById('ios');
-  var andBtn = document.getElementById('android');
-  iosBtn.href = ios;
-  andBtn.href = android;
-
-  // 日本語以外の人には英語で
-  var ja = (navigator.language || '').toLowerCase().indexOf('ja') === 0;
-  if (!ja) {
-    document.documentElement.lang = 'en';
-    document.getElementById('lead').textContent = 'Snap a photo. Track your calories.';
-    iosBtn.textContent = 'Download on the App Store';
-    andBtn.textContent = 'Get it on Google Play';
-    document.getElementById('pc').innerHTML = 'Open this page on your phone to go straight to the store.<br>starwiz.co.jp/munchcal';
-  }
+  var $ = function (id) { return document.getElementById(id); };
+  $('ios').href = ios;
+  $('android').href = android;
 
   var ua = navigator.userAgent || '';
   // iPadOS はパソコンの Mac と名乗るので、指で触れる画面かどうかで見分ける
   var isIOS = /iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
   var isAndroid = /Android/i.test(ua);
-  var status = document.getElementById('status');
+  var platform = isIOS ? 'ios' : isAndroid ? 'android' : 'desktop';
+  var inapp = /musical_ly|BytedanceWebview|TikTok/i.test(ua) ? 'tiktok'
+    : /Instagram/i.test(ua) ? 'instagram'
+    : /FBAN|FBAV|FB_IAB/i.test(ua) ? 'facebook'
+    : /\bLine\//i.test(ua) ? 'line'
+    : /Twitter/i.test(ua) ? 'x'
+    : /YouTube/i.test(ua) ? 'youtube' : 'none';
+  var lang = (navigator.language || '').toLowerCase();
+  var ja = lang.indexOf('ja') === 0;
+
+  // 日本語以外の人には英語で
+  if (!ja) {
+    document.documentElement.lang = 'en';
+    document.title = 'MunchCal: AI Calorie Tracker';
+    $('sub').textContent = 'AI Calorie Tracker & Food Diary';
+    $('dev').textContent = 'STARWIZ Inc.';
+    $('chips').innerHTML = '<li>Snap a photo to log</li><li>Free to start</li><li>iPhone & Android</li>';
+    $('iosImg').src = '/img/badges/appstore-en.svg'; $('iosImg').alt = 'Download on the App Store'; $('ios').setAttribute('aria-label', 'Download on the App Store');
+    $('andImg').src = '/img/badges/googleplay-en.png'; $('andImg').alt = 'Get it on Google Play'; $('android').setAttribute('aria-label', 'Get it on Google Play');
+    var shots = $('shots').getElementsByTagName('img');
+    var alts = ['Log meals with your pet', 'Snap to count calories', 'Your pet eats what you eat'];
+    for (var i = 0; i < shots.length; i++) { shots[i].src = '/img/munchcal/ss-en-' + (i + 1) + '.jpg'; shots[i].alt = alts[i]; }
+    $('pc').textContent = 'Open this page on your phone to go straight to the store.';
+    $('by').textContent = 'By ';
+    $('privacy').textContent = 'Privacy Policy'; $('support').textContent = 'Support';
+  }
+
+  // ---- 開いた数の記録（個人を特定する情報は送らない） ----
+  function rand(n) {
+    var s = '', c = '0123456789abcdef';
+    try { var a = new Uint8Array(n); crypto.getRandomValues(a); for (var i = 0; i < n; i++) s += c[a[i] & 15]; }
+    catch (e) { for (var j = 0; j < n; j++) s += c[Math.floor(Math.random() * 16)]; }
+    return s;
+  }
+  var device = '';
+  try { device = localStorage.getItem('sw_link_device') || ''; if (!device) { device = rand(32); localStorage.setItem('sw_link_device', device); } }
+  catch (e) { device = rand(32); }
+  var session = rand(12);
+  var refHost = '';
+  try { refHost = document.referrer ? new URL(document.referrer).hostname.slice(0, 64) : ''; } catch (e) {}
+
+  function log(name, extra) {
+    var props = { src: src, platform: platform, inapp: inapp, lang: lang.slice(0, 8), ref: refHost };
+    if (extra) for (var k in extra) props[k] = extra[k];
+    try {
+      return fetch(SUPABASE_URL + '/rest/v1/events', {
+        method: 'POST', keepalive: true,
+        headers: { 'apikey': SUPABASE_KEY, 'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
+        body: JSON.stringify({ app: 'pakumi', device_id: device, session: session, name: name, props: props, at: new Date().toISOString() })
+      }).catch(function () {});
+    } catch (e) { return Promise.resolve(); }
+  }
+  // 時間がかかっても、ストアへ進むのを待たせすぎない
+  function within(p, ms) { return Promise.race([p, new Promise(function (r) { setTimeout(r, ms); })]); }
+
+  var opened = log('link.open');
+  $('ios').addEventListener('click', function () { log('link.click', { store: 'app_store' }); });
+  $('android').addEventListener('click', function () { log('link.click', { store: 'google_play' }); });
 
   if (isIOS || isAndroid) {
-    var target = isIOS ? ios : android;
-    var mine = isIOS ? iosBtn : andBtn;
-    var other = isIOS ? andBtn : iosBtn;
-    mine.className = 'btn main';
-    other.parentNode.appendChild(other); // 自分の端末のボタンを上に
-    status.textContent = ja ? 'ストアを開いています…' : 'Opening the store…';
-    setTimeout(function () {
-      // 自動で飛ばなかった時（アプリ内ブラウザなど）はボタンを押してもらう
-      status.textContent = ja ? '開かない時は、下のボタンを押してください。' : 'If nothing happens, tap the button below.';
-    }, 1500);
-    location.replace(target);
+    // 自分の端末のバッジを上に
+    if (isAndroid) $('badges').insertBefore($('android'), $('ios'));
+    $('status').textContent = ja ? 'ストアを開いています…' : 'Opening the store…';
+    within(opened, 700).then(function () {
+      location.replace(isIOS ? ios : android);
+      // 自動で進まなかった時（アプリ内ブラウザなど）のための一言
+      setTimeout(function () {
+        $('status').textContent = ja ? '自動で開かない時は、上のボタンから開けます。' : 'If the store didn’t open, tap the button above.';
+      }, 1800);
+    });
   } else {
-    document.getElementById('pc').hidden = false;
+    $('pc').hidden = false;
   }
 })();
 </script>
