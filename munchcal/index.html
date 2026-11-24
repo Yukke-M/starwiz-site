@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MunchCal | STARWIZ</title>
+<meta name="description" content="写真を撮るだけでカロリーを記録。シマリスといっしょに続ける食事記録アプリ。">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#FFEEE8">
+<link rel="icon" href="../img/munchcal-favicon-48.png" type="image/png">
+<link rel="apple-touch-icon" href="../img/munchcal-apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="MunchCal">
+<meta property="og:title" content="MunchCal：AIカロリー計算・食事記録">
+<meta property="og:description" content="写真を撮るだけでカロリーを記録。シマリスといっしょに続ける食事記録アプリ。">
+<meta property="og:image" content="https://starwiz.co.jp/img/munchcal-og.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta name="twitter:card" content="summary">
+<!--
+  SNS のプロフィール・投稿に貼るための「1本のリンク」（2026-11-24）。
+  https://starwiz.co.jp/munchcal?src=tiktok のように開くと、
+    iPhone・iPad → App Store、Android → Google Play に自動で飛ぶ。
+    パソコン・判定できない端末 → このページに両方のボタンを出す。
+  TikTok・Instagram の中のブラウザで自動で飛ばない時のために、ボタンは常に出しておく。
+  src（どこから来たか）は App Store の ct（キャンペーン名）と、Google Play の referrer（utm_source）に渡す。
+  App Store Connect で数を見るには pt（会社の番号）も要る。わかったら下の PT に入れる。
+-->
+<style>
+  :root{--bg:#FFEEE8;--paper:#FFFFFF;--ink:#2B2B2B;--sub:#6B6B6B;--brand:#FF6537;--brand-edge:#D64218;color-scheme:light}
+  *{box-sizing:border-box}
+  body{margin:0;min-height:100vh;background:var(--bg);color:var(--ink);font-family:"Hiragino Sans","Noto Sans JP",-apple-system,BlinkMacSystemFont,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.7}
+  main{max-width:420px;margin:0 auto;padding:56px 16px 40px;text-align:center}
+  .logo{width:104px;height:104px;border-radius:24px;margin:0 auto 18px;display:block;box-shadow:0 8px 22px rgba(214,66,24,.20)}
+  h1{font-size:26px;margin:0 0 4px;line-height:1.4}
+  .lead{color:var(--sub);margin:0 0 28px;font-size:15px}
+  .stores{display:flex;flex-direction:column;gap:12px}
+  .btn{display:block;text-align:center;text-decoration:none;font-weight:700;font-size:17px;padding:15px 16px;border-radius:14px;background:#2B2B2B;color:#fff;border-bottom:4px solid #000}
+  .btn.main{background:var(--brand);border-bottom-color:var(--brand-edge)}
+  .status{font-size:14px;color:var(--sub);min-height:22px;margin:0 0 14px}
+  .pc{margin-top:22px;font-size:14px;color:var(--sub)}
+  footer{margin-top:36px;font-size:12px;color:#9A8A84}
+  footer a{color:inherit}
+</style>
+</head>
+<body>
+<main>
+  <img class="logo" src="../img/munchcal-icon.png" alt="MunchCal">
+  <h1>MunchCal</h1>
+  <p class="lead" id="lead">写真を撮るだけで、カロリーを記録。</p>
+  <p class="status" id="status" aria-live="polite"></p>
+  <div class="stores">
+    <a class="btn" id="ios" href="https://apps.apple.com/app/id6827327851">App Store で入れる</a>
+    <a class="btn" id="android" href="https://play.google.com/store/apps/details?id=jp.co.starwiz.pakumi">Google Play で入れる</a>
+  </div>
+  <p class="pc" id="pc" hidden>スマホでこのページを開くと、そのままストアに進めます。<br>starwiz.co.jp/munchcal</p>
+  <footer><a href="../">STARWIZ Inc.</a></footer>
+</main>
+<script>
+(function () {
+  var APP_STORE_ID = '6827327851';
+  var PLAY_PACKAGE = 'jp.co.starwiz.pakumi';
+  var PT = ''; // App Store Connect の「会社の番号（provider token）」。わかったら入れる
+
+  // どこから来たか（?src=tiktok など）。英数字・-・_ だけ、40文字まで
+  var m = location.search.match(/[?&]src=([^&#]*)/);
+  var src = m ? decodeURIComponent(m[1]).toLowerCase().replace(/[^a-z0-9_-]/g, '').slice(0, 40) : '';
+  if (!src) src = 'direct';
+
+  var ios = 'https://apps.apple.com/app/id' + APP_STORE_ID + '?ct=' + encodeURIComponent(src) + (PT ? '&pt=' + encodeURIComponent(PT) + '&mt=8' : '');
+  var referrer = 'utm_source=' + src + '&utm_medium=smartlink&utm_campaign=munchcal';
+  var android = 'https://play.google.com/store/apps/details?id=' + PLAY_PACKAGE + '&referrer=' + encodeURIComponent(referrer);
+
+  var iosBtn = document.getElementById('ios');
+  var andBtn = document.getElementById('android');
+  iosBtn.href = ios;
+  andBtn.href = android;
+
+  // 日本語以外の人には英語で
+  var ja = (navigator.language || '').toLowerCase().indexOf('ja') === 0;
+  if (!ja) {
+    document.documentElement.lang = 'en';
+    document.getElementById('lead').textContent = 'Snap a photo. Track your calories.';
+    iosBtn.textContent = 'Download on the App Store';
+    andBtn.textContent = 'Get it on Google Play';
+    document.getElementById('pc').innerHTML = 'Open this page on your phone to go straight to the store.<br>starwiz.co.jp/munchcal';
+  }
+
+  var ua = navigator.userAgent || '';
+  // iPadOS はパソコンの Mac と名乗るので、指で触れる画面かどうかで見分ける
+  var isIOS = /iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
+  var isAndroid = /Android/i.test(ua);
+  var status = document.getElementById('status');
+
+  if (isIOS || isAndroid) {
+    var target = isIOS ? ios : android;
+    var mine = isIOS ? iosBtn : andBtn;
+    var other = isIOS ? andBtn : iosBtn;
+    mine.className = 'btn main';
+    other.parentNode.appendChild(other); // 自分の端末のボタンを上に
+    status.textContent = ja ? 'ストアを開いています…' : 'Opening the store…';
+    setTimeout(function () {
+      // 自動で飛ばなかった時（アプリ内ブラウザなど）はボタンを押してもらう
+      status.textContent = ja ? '開かない時は、下のボタンを押してください。' : 'If nothing happens, tap the button below.';
+    }, 1500);
+    location.replace(target);
+  } else {
+    document.getElementById('pc').hidden = false;
+  }
+})();
+</script>
+</body>
+</html>
