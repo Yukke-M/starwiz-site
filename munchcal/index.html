@@ -4,80 +4,104 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>MunchCal：AIカロリー計算・食事記録</title>
-<meta name="description" content="写真を撮るだけでカロリーを記録。シマリスといっしょに続ける食事記録アプリ。iPhone・Android 対応。">
+<meta name="description" content="写真を撮るだけで、AIがカロリーとPFCを計算。記録した料理は、相棒のシマリス「マンチ」がパクッと食べてくれます。">
 <meta name="robots" content="noindex">
-<meta name="theme-color" content="#FFEEE8">
+<meta name="theme-color" content="#FDF5ED">
 <link rel="icon" href="/img/munchcal-favicon-48.png" type="image/png">
 <link rel="apple-touch-icon" href="/img/munchcal-apple-touch-icon.png">
-<meta name="apple-itunes-app" content="app-id=6827327851">
+<link rel="preload" as="image" href="/img/munchcal/hero.jpg">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="MunchCal">
 <meta property="og:url" content="https://starwiz.co.jp/munchcal/">
 <meta property="og:title" content="MunchCal：AIカロリー計算・食事記録">
-<meta property="og:description" content="写真を撮るだけでカロリーを記録。シマリスといっしょに続ける食事記録アプリ。">
+<meta property="og:description" content="写真を撮るだけで、AIがカロリーとPFCを計算。相棒のシマリス「マンチ」と続ける食事記録アプリ。">
 <meta property="og:image" content="https://starwiz.co.jp/img/munchcal-og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://starwiz.co.jp/img/munchcal-og.png">
 <!--
-  SNS に貼る「1本のリンク」（2026-11-24 作成、11-25 作り直し）。
+  SNS に貼る「1本のリンク」（2026-11-24 作成、11-25 お手本アプリの形に作り直し）。
+  形のお手本（2026-11-25 にスマホとして開いて確認）：
+    Finch（https://finchcare.com/）…大きな見出し → 端末のストアのバッジ1つ → キャラのいる場面
+    Cal AI（https://www.calai.app/）…見出し・説明・バッジの下にアプリの画面
   https://starwiz.co.jp/munchcal?src=tiktok のように開くと、
     iPhone・iPad → App Store、Android → Google Play に自動で進む。パソコンなどでは両方のバッジを出す。
-  TikTok・Instagram の中のブラウザで自動で進まない時のために、バッジは常に出しておく。
   src（どこから来たか）は App Store の ct、Google Play の referrer（utm_source）に渡す。
   開いた数：Supabase の events 表に name='link.open'（開いた）／'link.click'（バッジを押した）で1行ずつ入れる。
     個人を特定する情報は入れない（端末ごとの乱数・どこから来たか・端末の種類・言語だけ）。
-    数え方の SQL は starwiz-kit/docs/supabase-events.sql と同じ表。
-  アイコンはページに埋め込んである（ストアへ進むと読み込み中の画像が止まり、空白になるため）。
+  文言は App Store の説明文（app-food/store/metadata_ja.txt）から取った。
+  アイコンはページに埋め込み、場面の絵は読み込みを待ってからストアへ進む（進むと読み込み中の画像が止まり、空白になるため）。
 -->
 <style>
-  :root{--bg:#FFEEE8;--paper:#FFFFFF;--ink:#222222;--sub:#6B6B6B;--mute:#9A8A84;--line:#F3DED6;--brand:#FF6537;color-scheme:light}
+  :root{--sky:#FDF5ED;--grass:#C9E2A1;--ink:#2A2422;--sub:#6E625D;--mute:#A0938D;--brand:#FF6537;--brand-deep:#D64218;--line:#EFE3D9;color-scheme:light}
   *{box-sizing:border-box}
   html{-webkit-text-size-adjust:100%}
-  body{margin:0;min-height:100vh;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif;-webkit-font-smoothing:antialiased;line-height:1.6}
-  main{max-width:460px;margin:0 auto;padding:40px 16px 32px}
-  .card{background:var(--paper);border-radius:28px;padding:28px 20px 24px;box-shadow:0 10px 30px rgba(214,66,24,.10);text-align:center}
-  .logo{width:112px;height:112px;border-radius:26px;display:block;margin:0 auto 16px;box-shadow:0 8px 20px rgba(214,66,24,.22)}
-  h1{font-size:26px;margin:0;line-height:1.3;letter-spacing:.01em}
-  .sub{margin:4px 0 2px;font-size:15px;color:var(--sub)}
-  .dev{margin:0;font-size:13px;color:var(--mute)}
-  .badges{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:10px;margin:22px 0 0}
+  body{margin:0;background:var(--sky);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif;-webkit-font-smoothing:antialiased;line-height:1.6}
+  img{display:block;max-width:100%}
+  header{max-width:1040px;margin:0 auto;padding:14px 16px;display:flex;align-items:center;gap:10px}
+  header img{width:36px;height:36px;border-radius:9px;box-shadow:0 2px 6px rgba(214,66,24,.18)}
+  header span{font-size:19px;font-weight:800;letter-spacing:.01em}
+  .hero{max-width:1040px;margin:0 auto;padding:18px 16px 0;text-align:center}
+  h1{font-size:36px;line-height:1.3;margin:0;font-weight:800;letter-spacing:.01em}
+  h1 em{font-style:normal;color:var(--brand)}
+  .lead{font-size:15px;color:var(--sub);margin:14px auto 0;max-width:24em}
+  .badges{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:10px;margin:24px 0 0}
   .badges a{display:block;line-height:0;border-radius:10px;-webkit-tap-highlight-color:transparent}
   .badges a:active{opacity:.75}
-  .badges img{height:46px;width:auto;display:block}
-  .shots{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;margin:24px -20px 0;padding:0 20px 4px;scrollbar-width:none}
-  .shots::-webkit-scrollbar{display:none}
-  .shots img{flex:none;width:42%;max-width:170px;aspect-ratio:1320/2868;height:auto;border-radius:16px;scroll-snap-align:center;background:#FFF3EE;border:1px solid var(--line)}
-  footer{margin-top:22px;text-align:center;font-size:12px;color:var(--mute);line-height:2}
-  footer a{color:inherit;text-decoration:none;border-bottom:1px solid rgba(154,138,132,.4)}
-  @media (min-width:420px){.badges img{height:50px}}
+  .badges img{height:50px;width:auto}
   .badges.one img{height:60px}
-  @media (min-width:700px){.shots{overflow:visible;margin:24px 0 0;padding:0}.shots img{width:calc((100% - 20px)/3)}}
+  .scene{margin:20px -16px 0}
+  .scene img{width:100%;height:auto;aspect-ratio:900/715}
+  .shots-wrap{background:var(--grass);padding:4px 0 32px}
+  .shots-wrap h2{font-size:20px;text-align:center;margin:0 0 16px;padding:24px 16px 0}
+  .shots{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:0 16px 4px;max-width:1040px;margin:0 auto;scrollbar-width:none}
+  .shots::-webkit-scrollbar{display:none}
+  .shots img{flex:none;width:58%;max-width:230px;aspect-ratio:1320/2868;height:auto;border-radius:20px;scroll-snap-align:center;background:#fff;box-shadow:0 6px 18px rgba(60,90,40,.18)}
+  footer{background:var(--grass);text-align:center;font-size:12px;color:#5F7450;line-height:2;padding:0 16px 28px}
+  footer a{color:inherit;text-decoration:none;border-bottom:1px solid rgba(95,116,80,.4)}
+  @media (min-width:600px){.scene{max-width:600px;margin:24px auto 0}.scene img{border-radius:28px}.shots-wrap{margin-top:40px}}
+  @media (min-width:860px){
+    .hero{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:32px;text-align:left;padding-top:32px}
+    h1{font-size:52px}
+    .lead{margin-left:0;font-size:17px}
+    .badges{justify-content:flex-start}
+    .scene{margin:0}
+    .scene img{border-radius:28px}
+    .shots-wrap{margin-top:40px}
+    .shots{justify-content:center;overflow:visible}
+    .shots img{width:230px}
+  }
 </style>
 </head>
 <body>
-<main>
-  <section class="card">
-    <img class="logo" src="data:image/jpeg;base64,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" width="112" height="112" alt="MunchCal のアイコン">
-    <h1>MunchCal</h1>
-    <p class="sub" id="sub">AIカロリー計算・食事記録</p>
-    <p class="dev" id="dev">株式会社スターウィズ</p>
+<header>
+  <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAQDAwMDAgQDAwMEBAQFBgoGBgUFBgwICQcKDgwPDg4MDQ0PERYTDxAVEQ0NExoTFRcYGRkZDxIbHRsYHRYYGRj/2wBDAQQEBAYFBgsGBgsYEA0QGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBj/wAARCABsAGwDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDcooor8dP6iCjIzjPPpVvStOn1fXLPSrb/AFt1MsKn0LHGfw6/hX0tL8OvCEvhddDOkQCJE2rcooE4b+/v67u/PHbGK78Fl9TFqTg7WPAzniGhlUqcKqbcu3Rd/wCvM+XqK1vE2gXfhjxRdaNdne0LZSUDAlQ8qw+o/XNYd3dRWdnJczHCIM8dT6AVxypyjLka12PbpVYVoRqU3eLV0/Jk1FcFeaxf3kxdp3jTPyxxsVA/LrVrTPEF1azKl1I08B4O7ll9wf6V2yy6oo3T17F3OzopEdXjV0YMrDII7il7ZNeeMKK0Z9A1y10hNVudHvobFyAtxJCyoc9OT61nU5Rcd1YiFSFRXg0/QKKKKRYUUUUAdp8J4En+LWmb8fu1llGfURtj+dfSU00NtbPcXEqRQxrueSRgqqB3JPQV8qeENbXw74303WJAxhgl/ehRkmNgVbH4En8K2fH3xAvfF+oG2tzLb6PE37q3JwZCP45PU+g6D6817uX5hTwuGknrK+3yR8JxDw9iM0zKDi7U+VXfazenrqXPiv4m8P8AibX7OXRGkme2jaGW627UlGcqFzycHdz715pqdiuoaa9sW2scMrejDpWjb2l3eOVtLWe4YdRDGzkfXApksM0ExinikikHVJFKsPwNeVVxE6lV13o2fXYDCUsFQjhabuo93qeZzRSQTvDKhR0OGU9jTK7HxDpQu7Y3cC/v4xyB/Go7fUVx1e7h66rQ5ludZ2fhmdptE8tjkxOUH06j+de7fB7wVYahE/inU0iuRFKYrW3bDBWHV3Hr/dB9z6V4T4ZhMWhiQj/WuXH06D+Vdh4b8S6r4W1pNS0uba3SWFidky/3WH9eo7V5kKtKli3Oauk/6Z5mc4TEYvBzo4afLJ/j5X6X7n1F4gsYdT8K6lYXAzHPayIxPOPlJB/AgH8K+RVOUBPcV9Hax480q9+DN94hsZSjTQtaLCx+eOdxt2H3GSc9wM185AYAA7V155VhUlTcHfT8Oh81wNhq1ClXjVTXvJWfdLX9Aooorwj7oKKKKACvUfh38Lf7ct4td8RK8ent80FqDta4H95j1VPpyfYdeV8AeG18UeO7TTp1JtEzcXPvGuPl/EkD8a9h+MvxIh+FPwkuvEEEEE2oyOlhpdpIdsclzJwgb0RQCx9lxxmvdyfLo137WorpbLufDcX8QVMHbB4Z2nJXb6pdLeb79F66diJdC8N2MNt5+naRbE7Yo2kS3Vj6DJGT+dReIPDmj+KNKay1e1WZWHyTAfvIz2ZG6j+Rr4V1/XfFvwX/AGjLeL4yr4U+IY1WKG71Q3dpHevDBIxUrE0iZhKbSwRQEYAcc5H2roPhWHwVry2XhtnXwrfxNLBYbi8enTrhsQZJKxSKWPl/dVk+XAcivr54aLpuLWi3R+WqvUo1FVjJ826a/wAz518SaDdeGvE93ot4Q7QN8sgGBIh5Vh9R/WvKZLJzrb2EQ+bzjGv5/wCFfT/x205E1DR9WVQGljktnPrtIZf0Zq8Vi0u2j1eS/RGaeTjHXB6cD1NfEzawNepTXy/T8z91yXHPH4GniJbta+q0f4o09G0e81G8ttH0i0kuZ2ASONByQB1PoO5J4Fes2HwJuJLEPqniFILgjPl20HmKp9CxIz+ArRsJfCvwO+FE/i/xrdLazyKvnsq75WZuUtol6s3sO4JJAGQaD8Yda1vw7H4wt/A0N74QbJm1DRdbh1G6slHJaa2RB90EFkjZ2UZ4NergMkjKHPXV2+nb/gnweecZYh1nTwEuWEXbmsnd/PS3bq/wPMvF3g3WfBt8trfkS2sxLQ3MWfLlI9j0YA9D2PGRXN19SeL9Ks/F3w3uoraSK5WW3F3ZzxkMrMF3oykdQRxnuGr5bByAcYzXjZpglhaqUfhe3+R9bwxnUs0wzdX44uzt17P5/oFFFFeafShXpPw++Fz+JbRNa1qWW20xj+6jj4kuMcE5/hXtnqe3rXm6qHcITgMQM+ma+wrO1hstOt7O2UJDBEsSKOgVQAP5V7GT4KGInKVTVR6Hx/GGc1svowp4d2lO+vZK17ebuZ+ieF/D/hxHGi6XBaNIoV5FyzuB0yxJJr5p/bqtb6X4Z+EruJGayh1WVJyBkK7wfu8/Xa4r6trJ8S+GdC8YeFrvw54l0yHUdMu12TW0wOGwcggjlWBAIYEEEcV9fTjGmrRVkfks686lT2tWTk+7d3+J+S2haHqni7xdp3h3TY5brUNTuY7OFSSzFmIXknsBkn0CnsK/YZbdLHRLaxRiyxIkSk9woAz+leZfDn4E/C74Xa5Jrfhbw4w1RlaNb2+uXuZIlPVYy3CZ6Ejkjgmup8ea14g0b4da5rnhvSE1jWLKzkntNPYsBcOozs+XnpngcnpXV7SKg0t2ZV5urNaaI8x/aG8VeDtE0rRLDxH4psdIu5JpJ4Yp45ZGkjC7WYLEjEAEgZOBXL/BvSdF8YeLota0rXdJ1rStOImkezm3ES/8s0eNgrpz83zKAdvGai+I8/wD/aA+E2l+Itd+Imk+HL+yiDLdm6jW4sncDzbeWCQhmG4dMZyMg9c73g3wV8Mf2X/hhd+MW1PUdXXU3tbefVlRZGuFkkCxLCiHaI8uW4JJGTk4AryauW0atVVpX5tPTQ9/C8Q4vC4N4Km9Hdbaq+9n3PNv2iviZ4T0z9qTTNE+IXhSfxR4Z0XRWlXSlkCK97c8iZgSAwVFCc9NxIzjFcz+w1rt9F8ePEGiWqvHpd/pcl3JahyyxvHMgjOT1IWRkyeSMV2P7VH7P3jbxv8AEKz8ceBNNGrvLaJZX1kkyRyo0ZOyRd5AZSrYIzkFQcYPHffssfAfUfhFoupeJfGJgTxJqqLALSGQSfY7dTu2Fhwzs2C2MgbVGTzXr0Xqn0R4VSUFRa6voe6WWlWWjWsWlWEfl2kJKxRZyI1LFtg9FG7AHYADtXyFeosWqXUSfdSZ1H0DEV9is5eUueCTmvIvH3wmspbC61zw0jw3abp5bPcWSYdWKZ5Vupx0PtXz2eYWeIip01e1z67gvNqGArTp4h25+VJ9Lq+/37/eeIUUdRkUV8cfr4EZGK+mvh14tg8UeEIA8q/2jaIsN1GTzkDAcD0YD88ivmWrulatqOiapHqOlXclrcx/dkQ9R3BHQg+h4rvy/GvCVOa109zweIMkjm2HUE7TjrF/o/J/5eh9e1Xv7+z0zTpb/ULmO2toV3SSyHAUf57d68k0P45RlEh8R6Q6t0a5sTkH3MbdPwNcJ458dX/jLVed9vpkLf6PaZ/8ff1Y/p0Hv9DXzmhGnzU3d9v8z88wXBuOq4n2WIjyQW70f3ef5dez7HxF8br17toPC9jFFApwLm8Tc7+4TOFH1yfpW34L+LthqFmLXxXdQ2moGYJFJHCwjkU4wTjIUg8enQ14PQCQcg4IrwoZviY1Odyv5dD7utwjls8P7CMOV/zL4vvd/u2Pp7UPhf8ADbVtbl1fVPAHhq81CXPmXU+mxPI+RgksVyTyeetcfo37Nfwq0TxRaaxa6bqtxHYz/abHS7zU5rixs5Acho4GOAQeRnIFdF8KvEmr+JfB09xrMgmmt7kwLPtCmRdoPOOMjOM1ynxe8czRzT+DbCKSEjy3uboSFSwI3BFA7cjJz7V9RUzCnDDrEdHt/kfmWHyLE1se8vT1ju1slpr077He658QfCvh7XP7J1bUHjusBnCQtII88jcR0Pet+wv7HU7CO9067huraQZSWFgyn/6/tXx+zM7FnZmY9SxyTW/4S8Yat4Q1cXdhIZLdyPtFo5+SYf0b0b+nFePRz5up+8j7vluv8z63GcBwWHTw1Ruol1tZ+nby1f6n1VSry6j3FZmga7p/iTQodW0uUyQyjBU/ejYdUYdiP/r1xvxE+JGn6DpdxpWkXUdxq8qmP9025bYEYLMRxu9F9eTXvVcVTpU/ayen5+h8JhcsxOJxH1WEHz3s/LvftY8F1ZII/EF/HbEGFbmUR46bd5x+lU6KK/P27u5+/wAI8sVHsFFFFIoKKKKACtDRdF1LxDrUOlaVbma4lP8AwFF7sx7KPWrPgvQJvGXjVdBtfPjjjQy3V2IiyQJ2yTgFmPAH+Br6W8NeFNG8KaYbPSbbaXwZZ5PmkmI7s38gOBXq4DKqmIalPSP5+h8vxBxNSyxOlD3qrWi6Lzf+W/puSeGPD9r4X8L2ujWjbxECXlIwZHPLMfqf0ArzD41+FpDLB4ttIyyBVt7wAfdx9x/pztP/AAGvZqiubaC8s5bS6hSaCZDHJG4yHU8EGvp8Tg4VqHsVounlbY/Lstzitg8asa3zNt83mnv/AJrzPjqiur+InhFPBXieG1juPMs75XktC+dwCkbkY9CRkfUc+tcpXxFajOjNwmrNH7hhMXSxdGNei7xlsXLXVdUsrKezstRure3uCDNFDKUWTHAyB161ToorNtvRm8YRi20tXuFFFFIoKKKKACiiigD6D+C+jpY+AX1Uj99qMzMTnoiEqo/Pcfxr0euJ+ErFvhJpmf4XmUf9/Wrtq+9wEVHDU0uyPwXPqkqmY15TevM18k7L8EFFFFdZ5J5v8bLKK4+HUV4+BJa3kZT/AIGCpH8vyr59r6G+NMjJ8Mgi4xJewq30G4/0r55r4/PEvrOnZH7DwQ28t1/mf6fqFFFFeOfXhRRRQB//2Q==" width="36" height="36" alt="">
+  <span>MunchCal</span>
+</header>
+<section class="hero">
+  <div>
+    <h1 id="h1">撮るだけで、<br><em>カロリー計算。</em></h1>
+    <p class="lead" id="lead">写真を撮るだけで、AIがカロリーとPFCを計算。記録した料理は、相棒のシマリス「マンチ」がパクッと食べてくれます。</p>
     <div class="badges" id="badges">
-      <a id="ios" href="https://apps.apple.com/app/id6827327851" aria-label="App Store からダウンロード"><img id="iosImg" src="/img/badges/appstore-ja.svg" alt="App Store からダウンロード" height="56"></a>
-      <a id="android" href="https://play.google.com/store/apps/details?id=jp.co.starwiz.pakumi" aria-label="Google Play で手に入れよう"><img id="andImg" src="/img/badges/googleplay-ja.png" alt="Google Play で手に入れよう" height="56"></a>
+      <a id="ios" href="https://apps.apple.com/app/id6827327851" aria-label="App Store からダウンロード"><img id="iosImg" src="/img/badges/appstore-ja.svg" alt="App Store からダウンロード" height="50"></a>
+      <a id="android" href="https://play.google.com/store/apps/details?id=jp.co.starwiz.pakumi" aria-label="Google Play で手に入れよう"><img id="andImg" src="/img/badges/googleplay-ja.png" alt="Google Play で手に入れよう" height="50"></a>
     </div>
-    <div class="shots" id="shots">
-      <img src="/img/munchcal/ss-ja-1.jpg" alt="ペットと一緒に楽しく食事記録" loading="lazy" decoding="async">
-      <img src="/img/munchcal/ss-ja-2.jpg" alt="撮るだけでカロリー計算" loading="lazy" decoding="async">
-      <img src="/img/munchcal/ss-ja-3.jpg" alt="撮った料理をペットもパクッ" loading="lazy" decoding="async">
-    </div>
-  </section>
-  <footer>
-    <a href="/privacy.html" id="privacy">プライバシーポリシー</a>　<a href="/support.html" id="support">サポート</a><br>
-    © STARWIZ Inc.
-  </footer>
-</main>
+  </div>
+  <div class="scene"><img id="hero" src="/img/munchcal/hero.jpg" width="900" height="715" alt="手をふるシマリスのマンチ"></div>
+</section>
+<section class="shots-wrap">
+  <h2 id="h2">食事の記録が、毎日の楽しみに。</h2>
+  <div class="shots" id="shots">
+    <img src="/img/munchcal/ss-ja-1.jpg" alt="ペットと一緒に楽しく食事記録" loading="lazy" decoding="async">
+    <img src="/img/munchcal/ss-ja-2.jpg" alt="撮るだけでカロリー計算" loading="lazy" decoding="async">
+    <img src="/img/munchcal/ss-ja-3.jpg" alt="撮った料理をペットもパクッ" loading="lazy" decoding="async">
+  </div>
+</section>
+<footer>
+  <a href="/privacy.html" id="privacy">プライバシーポリシー</a>　<a href="/support.html" id="support">サポート</a><br>
+  © STARWIZ Inc.
+</footer>
 <script>
 (function () {
   var APP_STORE_ID = '6827327851';
@@ -118,8 +142,10 @@
   if (!ja) {
     document.documentElement.lang = 'en';
     document.title = 'MunchCal: AI Calorie Tracker';
-    $('sub').textContent = 'AI Calorie Tracker & Food Diary';
-    $('dev').textContent = 'STARWIZ Inc.';
+    $('h1').innerHTML = 'Snap a photo.<br><em>Count calories.</em>';
+    $('lead').textContent = 'Snap your meal and see the calories and macros in seconds. Then Munch, your chipmunk buddy, eats it up.';
+    $('h2').textContent = 'Food logging you’ll look forward to.';
+    $('hero').alt = 'Munch the chipmunk waving';
     $('iosImg').src = '/img/badges/appstore-en.svg'; $('iosImg').alt = 'Download on the App Store'; $('ios').setAttribute('aria-label', 'Download on the App Store');
     $('andImg').src = '/img/badges/googleplay-en.png'; $('andImg').alt = 'Get it on Google Play'; $('android').setAttribute('aria-label', 'Get it on Google Play');
     var shots = $('shots').getElementsByTagName('img');
@@ -155,16 +181,20 @@
   }
   // 時間がかかっても、ストアへ進むのを待たせすぎない
   function within(p, ms) { return Promise.race([p, new Promise(function (r) { setTimeout(r, ms); })]); }
+  function imgReady(img) {
+    return new Promise(function (r) { if (img.complete) r(); else { img.onload = r; img.onerror = r; } });
+  }
 
   var opened = log('link.open');
   $('ios').addEventListener('click', function () { log('link.click', { store: 'app_store' }); });
   $('android').addEventListener('click', function () { log('link.click', { store: 'google_play' }); });
 
   if (isIOS || isAndroid) {
-    // スマホでは自分の端末のバッジだけを大きく出す（公式バッジは縦横の比率が違い、並べると大きさがそろわないため）
+    // スマホでは自分の端末のバッジだけを大きく出す（Finch と同じ。公式バッジは縦横の比率が違い、並べると大きさがそろわないため）
     (isIOS ? $('android') : $('ios')).style.display = 'none';
     $('badges').className = 'badges one';
-    within(opened, 700).then(function () { location.replace(isIOS ? ios : android); });
+    // 記録と場面の絵の読み込みを待ってから進む（長くても 1.5 秒）
+    within(Promise.all([opened, imgReady($('hero'))]), 1500).then(function () { location.replace(isIOS ? ios : android); });
   }
 })();
 </script>
